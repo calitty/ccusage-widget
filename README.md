@@ -16,6 +16,10 @@ bash install.sh
 
 脚本会自动装好 Übersicht、node、ccusage,并部署 widget。
 
+## 📱 iPhone 桌面小组件
+
+也能做成 iOS 桌面卡片(Scriptable + iCloud,免服务器/免上架)。见 [mobile/README.md](mobile/README.md)。
+
 ## 手动安装(如果不想跑脚本)
 
 ```bash
