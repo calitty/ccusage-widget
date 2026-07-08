@@ -28,7 +28,7 @@ const KEYFRAMES = `
   @keyframes cc-float1 { 0%{transform:translate(0,0)} 50%{transform:translate(26px,20px)} 100%{transform:translate(0,0)} }
   @keyframes cc-float2 { 0%{transform:translate(0,0)} 50%{transform:translate(-22px,-18px)} 100%{transform:translate(0,0)} }
   @keyframes cc-hue    { to { filter: hue-rotate(360deg); } }
-  @keyframes cc-pulse  { 0%,100%{opacity:1;box-shadow:0 0 6px #34e6c8} 50%{opacity:.35;box-shadow:0 0 2px #34e6c8} }
+  @keyframes cc-pulse  { 0%,100%{opacity:1;box-shadow:0 0 6px 0 #5bff5b} 50%{opacity:.6;box-shadow:0 0 2px 0 #39ff14} }
 `;
 
 // ---- 拖动 ----
@@ -226,7 +226,7 @@ export const render = ({ output, error }) => {
           {/* 5小时会话 + LIVE */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <span style={{ fontSize: 10, letterSpacing: 1, opacity: 0.5, display: "flex", alignItems: "center" }}>
-              {block ? <span style={{ display: "inline-block", width: 7, height: 7, borderRadius: 4, background: "#34e6c8", marginRight: 7, animation: "cc-pulse 1.6s ease-in-out infinite" }} /> : null}
+              {block ? <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 4, background: "#8dff7a", marginRight: 8, boxShadow: "0 0 4px 0 #39ff14", animation: "cc-pulse 1.8s ease-in-out infinite" }} /> : null}
               5小时会话 · {remainTxt}
             </span>
             <span style={{ fontSize: 13, fontWeight: 700, fontFamily: NUM, color: "#f0b86e" }}>
