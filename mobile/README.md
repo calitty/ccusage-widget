@@ -2,6 +2,8 @@
 
 在 iPhone 桌面显示 Claude Code / Codex 用量。原理:Mac 定时把 `ccusage` 结果写进 Scriptable 的 iCloud 文件夹,手机小组件读取渲染。**无需服务器、无需上架、免签名。**
 
+<p align="center"><img src="widget-preview.svg" width="360" alt="iOS 小组件预览(中号)"></p>
+
 ```
 Mac (有日志) ──launchd每5分钟──▶ iCloud/Scriptable/ccusage.json ──▶ iPhone 小组件
 ```
