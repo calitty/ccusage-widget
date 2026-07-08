@@ -2,11 +2,11 @@
 
 Claude Code + Codex token 用量的 macOS 桌面卡片(Übersicht widget)。液态玻璃风,可拖动,Tab 切换 agent,含今日/近7天/累计 + 7天趋势图 + 5小时会话。
 
-## 换电脑 / 新机安装
-
-把整个文件夹拷到新 Mac,然后:
+## 快速安装(任何 Mac)
 
 ```bash
+git clone https://github.com/calitty/ccusage-widget.git
+cd ccusage-widget
 bash install.sh
 ```
 
