@@ -2,7 +2,7 @@
 // Tab 切换 agent; 今日 / 近7天 / 累计 + 7天趋势图; Claude 另加 5小时会话(燃烧速率 + 窗口预测 + LIVE)
 // 数据源: ccusage (读本地日志, 不调 API)
 
-export const refreshFrequency = 15000; // 15s 刷新(会话/速率变化较快)
+export const refreshFrequency = 120000; // 2min 刷新(命令要跑 ~20s, 频率必须远大于它, 否则永远出不来数据)
 
 export const command = `
   export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"

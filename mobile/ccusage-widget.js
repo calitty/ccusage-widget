@@ -23,13 +23,15 @@ const ago = (sec) => {
 };
 
 async function loadData() {
+  const fm = FileManager.iCloud();
+  const path = fm.joinPath(fm.documentsDirectory(), "ccusage.json");
+  if (!fm.fileExists(path)) return { err: "iCloud 尚未下发\nccusage.json 到手机\n\n请在 App 里点 ▶️ 运行一次" };
   try {
-    const fm = FileManager.iCloud();
-    const path = fm.joinPath(fm.documentsDirectory(), "ccusage.json");
-    if (!fm.fileExists(path)) return null;
     if (!fm.isFileDownloaded(path)) await fm.downloadFileFromiCloud(path);
-    return JSON.parse(fm.readString(path));
-  } catch (e) { return null; }
+  } catch (e) { return { err: "下载失败:\n" + e.message }; }
+  try {
+    return { data: JSON.parse(fm.readString(path)) };
+  } catch (e) { return { err: "解析失败:\n" + e.message }; }
 }
 
 function chartImage(series, hex, wpx, hpx) {
@@ -65,7 +67,7 @@ function metric(w, label, tok, cost) {
 }
 
 async function build() {
-  const data = await loadData();
+  const res = await loadData();
   const w = new ListWidget();
   const bg = new LinearGradient();
   bg.colors = [new Color("#101526"), new Color("#0a0c14")];
@@ -73,15 +75,16 @@ async function build() {
   w.backgroundGradient = bg;
   w.setPadding(14, 15, 14, 15);
 
-  if (!data) {
-    const t = w.addText("等待 Mac 同步…");
-    t.font = Font.boldSystemFont(13); t.textColor = Color.white();
+  if (res.err) {
+    const t = w.addText("⏳ 等待数据");
+    t.font = Font.boldSystemFont(13); t.textColor = new Color(ORANGE);
     w.addSpacer(4);
-    const t2 = w.addText("确认 Mac 定时任务在跑\n且两端登录同一 Apple ID");
-    t2.font = Font.systemFont(10); t2.textColor = Color.white(); t2.textOpacity = 0.5;
+    const t2 = w.addText(res.err);
+    t2.font = Font.systemFont(10); t2.textColor = Color.white(); t2.textOpacity = 0.6;
     return w;
   }
 
+  const data = res.data;
   const A = data[AGENT];
   const small = config.widgetFamily === "small";
 
