@@ -33,7 +33,16 @@ const KEYFRAMES = `
 
 // ---- 拖动 ----
 const OFF_KEY = "ccusage-card-offset";
-const loadOffset = () => { try { return JSON.parse(localStorage.getItem(OFF_KEY)) || { x: 0, y: 0 }; } catch (e) { return { x: 0, y: 0 }; } };
+const loadOffset = () => {
+  let o;
+  try { o = JSON.parse(localStorage.getItem(OFF_KEY)) || { x: 0, y: 0 }; } catch (e) { o = { x: 0, y: 0 }; }
+  // 防呆: 不管存的偏移多离谱, 强制夹紧到可视范围, 避免被拖到屏幕外看不见
+  const W = (typeof window !== "undefined" && window.innerWidth) || 1440;
+  const H = (typeof window !== "undefined" && window.innerHeight) || 900;
+  o.x = Math.min(0, Math.max(o.x || 0, -(W - 120)));  // 右上角锚点: x 只能 <=0(向左进屏)
+  o.y = Math.max(0, Math.min(o.y || 0, H - 160));      // y 在 0 ~ 屏高之间
+  return o;
+};
 const startDrag = (e) => {
   const card = e.currentTarget;
   const o = loadOffset();
